@@ -10,6 +10,8 @@
 
 Aplikasi web Enterprise Resource Planning (ERP) dan Storefront Koperasi Sekolah SMP Negeri 2 Metro berbasis **Laravel 11** dan **MySQL 8**. Mengintegrasikan sistem kasir Point of Sale (POS), toko online mandiri bagi siswa/anggota, pengadaan barang (*purchasing*), manajemen inventaris dengan audit stok opname, pembayaran multi-metode (Cash & QRIS Dinamis), serta laporan akuntansi komprehensif.
 
+**🌐 Website:** [koperasi-teguh.freedev.app](https://koperasi-teguh.freedev.app/)
+
 ---
 
 > **Panduan membaca README:** Bagian awal menampilkan halaman-halaman utama aplikasi beserta fungsi setiap peran, kemudian langsung menyajikan tujuh diagram sistem dan penjelasannya. Informasi fitur, teknologi, instalasi, dan deployment tersedia pada bagian berikutnya.
@@ -18,6 +20,7 @@ Aplikasi web Enterprise Resource Planning (ERP) dan Storefront Koperasi Sekolah 
 
 ## Daftar Isi
 
+- [A. Ringkasan & Akses Aplikasi](#a-ringkasan--akses-aplikasi)
 - [B. Tampilan Aplikasi dan Penjelasan Halaman](#b-tampilan-aplikasi-dan-penjelasan-halaman)
   - [Halaman Login Multirole](#1-halaman-login-multirole)
   - [Dashboard Admin](#2-dashboard-eksekutif-admin)
@@ -41,6 +44,17 @@ Aplikasi web Enterprise Resource Planning (ERP) dan Storefront Koperasi Sekolah 
 - [J. Informasi Deployment](#j-informasi-deployment)
 - [K. Informasi Pengembang](#k-informasi-pengembang)
 - [L. Panduan Unggah ke GitHub](#l-panduan-unggah-ke-github)
+
+
+---
+
+## A. Ringkasan & Akses Aplikasi
+
+**Sistem Informasi Koperasi Sekolah SMP Negeri 2 Metro** merupakan aplikasi berbasis web untuk mendukung pengelolaan operasional koperasi, mulai dari transaksi kasir, belanja anggota, inventaris, pengadaan barang, hingga pelaporan.
+
+**🌐 Website aplikasi:** [https://koperasi-teguh.freedev.app/](https://koperasi-teguh.freedev.app/)
+
+Aplikasi telah di-hosting dan dapat diakses secara online melalui tautan tersebut.
 
 ---
 
@@ -598,10 +612,17 @@ Aplikasi juga diuji berjalan pada hosting shared InfinityFree (PHP 8.2/8.3) deng
 - Pastikan ekstensi PHP `pdo_mysql`, `mbstring`, `openssl`, `tokenizer`, `xml`, `ctype`, `json`, `fileinfo`, `curl`, `gd`, dan `zip` aktif.
 - Berkas `.env` dilindungi oleh `.htaccess` agar tidak dapat diakses publik.
 
-### 3. Status Platform Cloud / Vercel: **Belum Terverifikasi**
-> [!WARNING]
-> **Status Deployment Vercel**: **Belum Terverifikasi (Unverified)**.
-> Repository ini tidak memuat konfigurasi `vercel.json` maupun adapter serverless runtime untuk PHP. Secara arsitektural, framework Laravel memerlukan runtime PHP persisten, filesystem lokal yang writable untuk upload berkas, serta koneksi database langsung. Jika aplikasi hendak disebarkan ke Vercel di masa depan, diperlukan refaktorisasi ke arsitektur serverless (misal menggunakan Bref / AWS Lambda atau Vercel PHP Community Runtime) dan pemindahan media storage ke cloud storage (seperti AWS S3).
+### 3. Aplikasi Hosted / Deployment Publik
+
+Aplikasi Koperasi Sekolah SMP Negeri 2 Metro telah di-hosting dan tersedia melalui alamat publik berikut:
+
+| Informasi | Detail |
+| :--- | :--- |
+| **Nama Aplikasi** | Koperasi Sekolah SMP Negeri 2 Metro |
+| **URL Website** | [https://koperasi-teguh.freedev.app/](https://koperasi-teguh.freedev.app/) |
+| **Akses** | Online melalui browser |
+
+> **Catatan:** Tautan di atas merupakan alamat aplikasi yang disediakan untuk mengakses versi hosted. Konfigurasi internal layanan hosting, seperti spesifikasi server, lokasi database, dan mekanisme penyimpanan berkas, tidak dirinci di README ini.
 
 ---
 
