@@ -1,0 +1,100 @@
+================================================================
+  PANDUAN UPLOAD APLIKASI KOPERASI KE INFINITYFREE
+  (tinggal upload + 1 klik install, tanpa setting lagi)
+================================================================
+
+Yang Anda butuhkan:
+  • Akun InfinityFree aktif
+  • Database MySQL sudah dibuat: if0_43425548_koperasi
+    (sesuai yang ada di halaman MySQL Databases Anda)
+
+----------------------------------------------------------------
+LANGKAH 1 — Pastikan versi PHP (sekali saja)
+----------------------------------------------------------------
+1. Login ke dash.infinityfree.com → pilih akun hosting Anda.
+2. Menu "Advanced" → "Select PHP Version" (atau MultiPHP Manager).
+3. Set PHP version ke **8.2** atau **8.3** (Laravel 11 butuh >= 8.2).
+4. Pastikan ekstensi berikut tercentang (biasanya sudah aktif):
+   pdo, pdo_mysql, mbstring, openssl, tokenizer, xml, ctype,
+   json, fileinfo, curl, gd, zip.
+
+----------------------------------------------------------------
+LANGKAH 2 — Upload file ke htdocs
+----------------------------------------------------------------
+Cara A (disarankan, via File Manager):
+1. Buka File Manager → masuk ke folder **htdocs**.
+2. HAPUS semua isi lama di htdocs (jika ada) agar tidak bentrok.
+3. Klik **Upload** → pilih file **koperasi-infinityfree.zip**.
+4. Setelah terupload, klik kanan file zip → **Extract** / Unzip.
+5. Pastikan hasil ekstrak berada LANGSUNG di htdocs
+   (bukan di dalam subfolder). Struktur yang benar:
+     htdocs/
+       ├── .env
+       ├── .htaccess
+       ├── install.php
+       ├── artisan
+       ├── app/  bootstrap/  config/  vendor/  public/  ...
+   Jika hasil ekstrak masuk ke subfolder, pindahkan isinya ke htdocs.
+
+Cara B (via FTP / FileZilla):
+   Upload SEMUA isi folder hasil ekstrak ke htdocs (termasuk
+   file tersembunyi .env dan .htaccess — pastikan FTP menampilkan
+   file dot).
+
+----------------------------------------------------------------
+LANGKAH 3 — Jalankan installer (1 kali saja)
+----------------------------------------------------------------
+1. Buka browser → akses:
+     https://koperasi-teguh.freedev.app/install.php
+2. Tunggu proses selesai (cek PHP, koneksi DB, migrasi tabel,
+   isi data awal, bersihkan cache).
+3. Jika semua bertanda ✅ hijau, instalasi berhasil.
+   File install.php akan terhapus otomatis.
+4. Klik tombol "Buka Aplikasi" → selesai 🎉
+
+   Jika ada ❌ merah, ikuti petunjuk yang ditampilkan (biasanya
+   soal versi PHP atau ekstensi), lalu refresh install.php.
+
+   Untuk RESET total (hapus semua data, isi ulang dari awal):
+   akses https://koperasi-teguh.freedev.app/install.php?fresh=1
+
+----------------------------------------------------------------
+AKUN LOGIN DEFAULT (password semuanya: password)
+----------------------------------------------------------------
+  • admin    / password  → Admin (akses penuh)
+  • kasir    / password  → Pengurus / Kasir
+  • gudang   / password  → Pengurus / Gudang
+  • anggota  / password  → Anggota (belanja di toko)
+
+  Segera ganti password setelah login pertama.
+
+----------------------------------------------------------------
+CATATAN PENTING
+----------------------------------------------------------------
+1. Domain: https://koperasi-teguh.freedev.app
+   (SSL sudah aktif di subdomain freedev.app)
+
+2. Pembayaran QRIS masih mode SANDBOX Midtrans (untuk testing).
+   Jika ingin produksi, ganti MIDTRANS_SERVER_KEY & set
+   MIDTRANS_IS_PRODUCTION=true di file .env.
+
+3. Fitur "pembayaran kedaluwarsa otomatis" TIDAK berjalan di
+   InfinityFree gratis karena tidak ada cron job. Status
+   pembayaran tetap diperiksa saat membuka nota / halaman
+   pembayaran. Jika butuh otomatis, gunakan cron eksternal
+   gratis (mis. cron-job.org) — tidak wajib untuk tugas.
+
+4. File .env sudah dikonfigurasi dengan database InfinityFree
+   Anda dan DILINDUNGI oleh .htaccess (tidak bisa diakses publik).
+
+5. Jika halaman putih / error 500:
+   • Cek file storage/logs/laravel.log via File Manager.
+   • Atau ubah APP_DEBUG=true di .env sementara untuk melihat
+     pesan error, lalu kembalikan ke false setelah selesai.
+
+6. Upload file produk/logo maksimal 20 MB (sudah diatur di
+   .htaccess).
+
+================================================================
+  Selamat mengerjakan! 🚀
+================================================================

@@ -1,0 +1,37 @@
+sequenceDiagram
+    actor Anggota as Anggota (Browser)
+    participant FE as Storefront (Blade)
+    participant CO as CheckoutController
+    participant PM as Model Penjualan & Pembayaran
+    participant QS as QrisService
+    participant PG as Payment Gateway (QRIS)
+    participant WH as QrisWebhookController (API)
+    participant SCH as Scheduler (KedaluwarsaPembayaran)
+
+    Anggota->>FE: POST /checkout (item keranjang)
+    FE->>CO: store()
+    CO->>PM: buat Penjualan (menunggu_bayar) + DetailPenjualan
+    CO->>PM: buat Pembayaran (metode=qris, status=menunggu)
+    CO->>QS: generateTagihan(jumlah, referensi)
+    QS->>PG: request QRIS + kode referensi
+    PG-->>QS: payload QRIS + kode_referensi
+    QS-->>CO: string QRIS + kode referensi
+    CO->>PM: simpan qris_payload, kode_referensi, kedaluwarsa_pada
+    CO-->>FE: redirect ke halaman pembayaran
+    FE-->>Anggota: tampilkan QR code + polling status
+
+    loop Polling status pembayaran
+        Anggota->>FE: GET /pesanan/{id}/status
+        FE->>PM: baca status_pembayaran
+        PM-->>FE: status (menunggu)
+    end
+
+    Anggota->>PG: Scan QR & bayar via e-wallet
+    PG->>WH: POST /api/webhook/qris (callback)
+    WH->>WH: verifikasi signature & kode_referensi
+    WH->>PM: update Pembayaran (berhasil, dibayar_pada)
+    WH->>PM: update Penjualan (status=diproses)
+    WH-->>PG: 200 OK
+
+    Note over SCH: Jika melewati kedaluwarsa_pada & belum dibayar
+    SCH->>PM: tandai Pembayaran=kedaluwarsa, Penjualan=batal

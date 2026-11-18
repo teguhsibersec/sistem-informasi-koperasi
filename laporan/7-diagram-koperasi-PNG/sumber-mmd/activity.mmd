@@ -1,0 +1,29 @@
+flowchart TD
+    A([Mulai]) --> B[Anggota login ke sistem]
+    B --> C[Jelajahi katalog produk]
+    C --> D{Tambah produk<br/>ke keranjang?}
+    D -- Ya --> E[Tambah item ke keranjang]
+    E --> C
+    D -- Selesai --> F[Buka keranjang & checkout]
+    F --> G[Isi catatan & konfirmasi pesanan]
+    G --> H[Sistem buat Penjualan<br/>status = menunggu_bayar]
+    H --> I{Pilih metode<br/>pembayaran}
+    I -- QRIS --> J[QrisService generate tagihan<br/>dapat kode referensi + QR]
+    J --> K[Pelanggan scan QR & bayar<br/>di e-wallet / mobile banking]
+    K --> L{Payment gateway<br/>kirim webhook?}
+    L -- Ya --> M[QrisWebhookController verifikasi signature]
+    M --> N[Pembayaran = berhasil<br/>Penjualan = diproses]
+    I -- Transfer / Bukti --> O[Anggota upload bukti pembayaran]
+    O --> P[Admin / Bendahara verifikasi bukti]
+    P --> Q{Bukti valid?}
+    Q -- Ya --> N
+    Q -- Tidak --> R[Tolak & minta upload ulang]
+    R --> O
+    L -- Tidak / lewat batas waktu --> S[Scheduler tandai pembayaran kedaluwarsa]
+    S --> T[Pesanan dibatalkan]
+    N --> U[Pengurus siapkan barang]
+    U --> V[Status = siap diambil]
+    V --> W[Anggota ambil barang]
+    W --> X[Status = selesai & cetak nota]
+    X --> Z([Selesai])
+    T --> Z

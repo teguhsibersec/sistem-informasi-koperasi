@@ -1,0 +1,56 @@
+flowchart LR
+    subgraph CLIENT["Client Layer"]
+        B[Browser Pengunjung / Anggota]
+        KPOS[Browser Komputer Kasir]
+    end
+
+    subgraph WEB["Web Application — Laravel 11"]
+        direction TB
+        AUTH[Auth Component<br/>Login / Register / Logout]
+        SF[Storefront Component<br/>Beranda / Belanja / Produk]
+        CART[Cart & Order Component<br/>Keranjang / Checkout / Pesanan / Profil]
+        POSC[POS Component<br/>Kasir / Cari Barang / Cari Anggota]
+        PAY[Payment Component<br/>Cash / QRIS / Konfirmasi Bukti]
+        MASTER[Master Data Component<br/>Anggota / Pengurus / Kategori / Produk / Pemasok]
+        INV[Inventory Component<br/>Stok / Riwayat Stok / Pembelian / Penerimaan]
+        REP[Report Component<br/>Laporan / Excel / PDF]
+        SET[Settings Component<br/>Pengaturan Sistem & Konfigurasi QRIS]
+        NOTA[Nota Component<br/>Cetak Nota PDF]
+    end
+
+    subgraph SVC["Service & Support Layer"]
+        QRIS[QrisService + Sertifikat]
+        AKS[Support Akses<br/>Mapping Role & Hak Akses]
+        EXP[LaporanExport<br/>Maatwebsite Excel]
+        CMD[Console Command<br/>KedaluwarsaPembayaran]
+    end
+
+    subgraph EXT["External & Data"]
+        PGW[Payment Gateway<br/>QRIS Provider]
+        DB[(MySQL / MariaDB)]
+        STO[(Storage<br/>logo / produk / qris / bukti_bayar)]
+    end
+
+    B --> SF
+    B --> AUTH
+    B --> CART
+    KPOS --> POSC
+    KPOS --> PAY
+    AUTH --> DB
+    SF --> DB
+    CART --> DB
+    CART --> PAY
+    POSC --> DB
+    POSC --> PAY
+    PAY --> QRIS
+    QRIS --> PGW
+    MASTER --> DB
+    INV --> DB
+    REP --> DB
+    REP --> EXP
+    SET --> DB
+    SET --> QRIS
+    NOTA --> DB
+    CMD --> DB
+    WEB --> STO
+    PGW -- "webhook callback" --> PAY

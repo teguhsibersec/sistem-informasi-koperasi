@@ -1,0 +1,69 @@
+flowchart TB
+    subgraph L1["Presentation Layer — Blade + Vite"]
+        V["Views<br/>admin / kasir / toko / auth / nota"]
+        LB["Layouts & Components"]
+        A["Assets CSS + JS"]
+    end
+
+    subgraph L2["HTTP / Middleware Layer"]
+        R["Routes<br/>web.php + api.php"]
+        MW["Middleware CekPeran<br/>admin / kasir / gudang / anggota"]
+        FR["Form Requests<br/>Login / Register / Checkout / Laporan"]
+        CT["Controllers<br/>Admin / Kasir / Toko / Auth / Api"]
+    end
+
+    subgraph L3["Application / Service Layer"]
+        QS["QrisService<br/>Generate tagihan + verifikasi"]
+        AK["Support Akses<br/>Mapping role & hak akses"]
+        EX["LaporanExport — Excel Maatwebsite"]
+        PDF["PDF Nota & Laporan"]
+        CM["Console Command<br/>KedaluwarsaPembayaran — Scheduler"]
+    end
+
+    subgraph L4["Domain Layer — Eloquent Models"]
+        M1["User / Anggota / Pengurus"]
+        M2["Barang / Kategori / Pemasok"]
+        M3["Penjualan / DetailPenjualan / Pembayaran"]
+        M4["Pembelian / DetailPembelian"]
+        M5["Keranjang / KeranjangItem"]
+        M6["RiwayatStok / Pengaturan / LogAktivitas"]
+    end
+
+    subgraph L5["Infrastructure Layer"]
+        DB[("MySQL / MariaDB")]
+        FS["Filesystem Storage<br/>logo / produk / qris / bukti"]
+        CACHE["Cache & Sessions"]
+    end
+
+    subgraph EXT3["External Systems"]
+        PG3["Payment Gateway — QRIS Provider"]
+    end
+
+    V --> LB
+    LB --> A
+    V --> R
+    R --> MW
+    MW --> FR
+    FR --> CT
+    CT --> QS
+    CT --> AK
+    CT --> EX
+    CT --> PDF
+    CT --> M1
+    CT --> M2
+    CT --> M3
+    CT --> M4
+    CT --> M5
+    CT --> M6
+    QS --> PG3
+    PG3 -- "POST /api/webhook/qris" --> R
+    CM --> M3
+    EX --> M3
+    PDF --> M3
+    M1 --> DB
+    M2 --> DB
+    M3 --> DB
+    M4 --> DB
+    M5 --> DB
+    M6 --> DB
+    CT --> FS

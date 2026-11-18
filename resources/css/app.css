@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[x-cloak] { display: none !important; }
+
+@layer components {
+    .btn { @apply inline-flex items-center justify-center rounded-lg px-4 py-2.5 text-sm font-semibold transition; }
+    .btn-navy { @apply btn bg-navy text-white hover:bg-navy-700; }
+    .btn-kuning { @apply btn bg-kuning text-navy hover:bg-kuning-600; }
+    .input { @apply w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm transition-all duration-200 hover:border-slate-400 focus:border-navy focus:outline-none focus:ring-4 focus:ring-navy/15 focus:shadow-[0_0_15px_rgba(11,31,107,0.12)]; }
+    .label { @apply mb-1 block text-sm font-medium text-slate-700; }
+    .galat { @apply mt-1 text-xs text-red-600; }
+}
+
+@keyframes blobFloat1 {
+    0%, 100% { transform: translate(0px, 0px) scale(1); }
+    50% { transform: translate(24px, 20px) scale(1.08); }
+}
+@keyframes blobFloat2 {
+    0%, 100% { transform: translate(0px, 0px) scale(1); }
+    50% { transform: translate(-22px, -24px) scale(0.95); }
+}
+@keyframes blobFloat3 {
+    0%, 100% { transform: translate(0px, 0px) scale(1); }
+    50% { transform: translate(16px, -18px) scale(1.05); }
+}
+@keyframes floatGentle {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-12px) rotate(4deg); }
+}
+@keyframes floatReverse {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(12px) rotate(-4deg); }
+}
+@keyframes floatCard1 {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
+}
+@keyframes floatCard2 {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+}
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideUpFade {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    15%, 45%, 75% { transform: translateX(-6px); }
+    30%, 60%, 90% { transform: translateX(6px); }
+}
+
+.animate-blob-1 { animation: blobFloat1 12s ease-in-out infinite; }
+.animate-blob-2 { animation: blobFloat2 14s ease-in-out infinite; }
+.animate-blob-3 { animation: blobFloat3 11s ease-in-out infinite; }
+
+.animate-float-1 { animation: floatGentle 7s ease-in-out infinite; }
+.animate-float-2 { animation: floatReverse 9s ease-in-out infinite; }
+.animate-float-3 { animation: floatGentle 8s ease-in-out infinite; }
+.animate-float-4 { animation: floatReverse 10s ease-in-out infinite; }
+.animate-float-5 { animation: floatGentle 8.5s ease-in-out infinite; }
+.animate-float-6 { animation: floatReverse 6.5s ease-in-out infinite; }
+
+.animate-card-1 { animation: floatCard1 6s ease-in-out infinite; }
+.animate-card-2 { animation: floatCard2 7s ease-in-out infinite 0.5s; }
+.animate-card-3 { animation: floatCard1 6.5s ease-in-out infinite 1s; }
+
+.animate-slide-up-fade { animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-shake { animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both; }
+
+.fade-step-1 { animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both; }
+.fade-step-2 { animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both; }
+.fade-step-3 { animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both; }
+.fade-step-4 { animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both; }
+.fade-step-5 { animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both; }
+
+@media (prefers-reduced-motion: reduce) {
+    .animate-blob-1, .animate-blob-2, .animate-blob-3,
+    .animate-float-1, .animate-float-2, .animate-float-3, .animate-float-4, .animate-float-5, .animate-float-6,
+    .animate-card-1, .animate-card-2, .animate-card-3,
+    .animate-slide-up-fade, .animate-shake,
+    .fade-step-1, .fade-step-2, .fade-step-3, .fade-step-4, .fade-step-5 {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+    }
+}

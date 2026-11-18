@@ -1,0 +1,66 @@
+flowchart LR
+    PUB((Pengunjung))
+    ANG((Anggota))
+    KSR(("Bendahara<br/>(Kasir)"))
+    GDG(("Sekretaris<br/>(Gudang)"))
+    ADM(("Admin / Ketua"))
+
+    subgraph SYS["Sistem Informasi Koperasi Sekolah"]
+        direction TB
+        UC1(["Lihat Beranda & Katalog"])
+        UC2(["Daftar Akun Anggota"])
+        UC3(["Login & Logout"])
+        UC4(["Kelola Profil Anggota"])
+        UC5(["Belanja & Keranjang"])
+        UC6(["Checkout Pesanan Online"])
+        UC7(["Bayar QRIS / Upload Bukti"])
+        UC8(["Pantau Status Pesanan"])
+        UC9(["Cetak / Unduh Nota"])
+        UC10(["Layanan POS Kasir"])
+        UC11(["Pembayaran Tunai / QRIS"])
+        UC12(["Kelola Data Transaksi"])
+        UC13(["Konfirmasi Pembayaran"])
+        UC14(["Kelola Produk & Kategori"])
+        UC15(["Kelola Stok & Riwayat"])
+        UC16(["Pembelian & Penerimaan Barang"])
+        UC17(["Kelola Pemasok"])
+        UC18(["Kelola Data Anggota"])
+        UC19(["Kelola Data Pengurus"])
+        UC20(["Dashboard & Grafik Penjualan"])
+        UC21(["Laporan Excel / PDF"])
+        UC22(["Pengaturan Sistem & QRIS"])
+    end
+
+    PUB --- UC1
+    PUB --- UC2
+    PUB --- UC3
+    ANG --- UC1
+    ANG --- UC4
+    ANG --- UC5
+    ANG --- UC6
+    ANG --- UC7
+    ANG --- UC8
+    ANG --- UC9
+    KSR --- UC10
+    KSR --- UC11
+    KSR --- UC12
+    KSR --- UC13
+    KSR --- UC9
+    GDG --- UC14
+    GDG --- UC15
+    GDG --- UC16
+    GDG --- UC17
+    ADM --- UC18
+    ADM --- UC19
+    ADM --- UC20
+    ADM --- UC21
+    ADM --- UC22
+    ADM --- UC13
+    ADM --- UC12
+    ADM --- UC14
+    ADM --- UC16
+
+    classDef actor fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1;
+    classDef usecase fill:#fff8e1,stroke:#f9a825,stroke-width:1.5px,color:#5d4037;
+    class PUB,ANG,KSR,GDG,ADM actor;
+    class UC1,UC2,UC3,UC4,UC5,UC6,UC7,UC8,UC9,UC10,UC11,UC12,UC13,UC14,UC15,UC16,UC17,UC18,UC19,UC20,UC21,UC22 usecase;

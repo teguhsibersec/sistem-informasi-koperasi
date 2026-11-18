@@ -1,0 +1,57 @@
+# ============================================================
+#  Konfigurasi untuk shared hosting (InfinityFree / cPanel)
+#  Semua request diarahkan ke folder public/ Laravel.
+#  File sensitif (.env, vendor, app, dll.) diblokir akses langsung.
+# ============================================================
+
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+
+    # ---- 1. Bersihkan URL: jika client akses /public/... langsung, redirect ke /... ----
+    RewriteCond %{THE_REQUEST} \s/+public/ [NC]
+    RewriteRule ^public/(.*)$ /$1 [R=301,L]
+
+    # ---- 2. /storage/* selalu diambil dari public/storage/* ----
+    # (mencegah bentrok dengan folder framework storage/ di root)
+    RewriteRule ^storage/?(.*)$ public/storage/$1 [L]
+
+    # ---- 3. Proteksi folder inti Laravel (403 Forbidden) ----
+    RewriteRule ^(app|bootstrap|config|database|routes|resources|vendor|tests|docs)(/|$) - [F,L]
+
+    # ---- 4. Proteksi file sensitif (403 Forbidden) ----
+    RewriteRule ^(\.env.*|artisan|composer\.(json|lock)|package(-lock)?\.json|phpunit\.xml|\.editorconfig|\.git.*|.*\.md|tailwind\.config\.js|vite\.config\.js|postcss\.config\.js)$ - [F,L]
+
+    # ---- 5. Lewatkan header Authorization & XSRF ----
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+    RewriteCond %{HTTP:x-xsrf-token} .
+    RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
+
+    # ---- 6. Akses root (/) -> public/ ----
+    RewriteRule ^$ public/ [L]
+
+    # ---- 7. Request lain (bukan file/folder fisik, dan belum diarahkan ke public/) -> public/ ----
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+
+# Blokir semua file dot (.env, .htaccess, .git, dll.)
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+# (Opsional) Paksa HTTPS. Aktifkan jika SSL sudah aktif di domain Anda:
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+#     RewriteCond %{HTTPS} off
+#     RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# </IfModule>
+
+# Catatan: untuk menaikkan limit upload, gunakan menu "Select PHP Version"
+# atau file php.ini (jika didukung), bukan php_value di .htaccess.

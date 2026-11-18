@@ -1,0 +1,153 @@
+erDiagram
+    USERS {
+        bigint id PK
+        string name
+        string username UK
+        string email UK
+        string password
+        enum role "admin|pengurus|anggota"
+        smallint id_pengurus FK
+        int id_anggota FK
+    }
+    PENGURUS {
+        smallint id_pengurus PK
+        char kode_pengurus UK
+        string nama_pengurus
+        enum jabatan_pengurus "ketua|sekretaris|bendahara"
+        string alamat_pengurus
+        string kota_pengurus
+        string telepon_pengurus
+    }
+    ANGGOTA {
+        int id_anggota PK
+        char no_anggota UK
+        string nis_anggota UK
+        string nama_anggota
+        string kelas_anggota
+        string alamat_anggota
+        string no_hp_anggota
+        enum status_anggota "aktif|nonaktif"
+        date tgl_daftar_anggota
+    }
+    PEMASOK {
+        int id_pemasok PK
+        string nama_pemasok
+        string telepon_pemasok
+        string alamat_pemasok
+    }
+    KATEGORI {
+        smallint id_kategori PK
+        string nama_kategori UK
+        string slug_kategori UK
+        string ikon
+    }
+    BARANG {
+        int id_barang PK
+        string kode_barang UK
+        string nama_barang
+        smallint id_kategori FK
+        string satuan_barang
+        decimal harga_jual_barang
+        int stok_barang
+        int stok_min_barang
+        string gambar_barang
+        text deskripsi_barang
+        enum status_barang "aktif|nonaktif"
+    }
+    PENJUALAN {
+        int id_penjualan PK
+        char no_nota_penjualan UK
+        datetime tgl_penjualan
+        smallint id_pengurus FK
+        int id_anggota FK
+        decimal bayar_penjualan
+        enum sumber_penjualan "kasir|online"
+        enum status_penjualan "menunggu_bayar|diproses|siap_diambil|selesai|batal"
+        string catatan_penjualan
+    }
+    DETAIL_PENJUALAN {
+        int id_penjualan PK "juga FK"
+        int id_barang PK "juga FK"
+        smallint qty_detail_penjualan
+        decimal harga_satuan_detail_penjualan
+    }
+    PEMBAYARAN {
+        int id_pembayaran PK
+        int id_penjualan FK
+        enum metode_pembayaran "cash|qris"
+        decimal jumlah_tagihan
+        decimal uang_diterima
+        decimal kembalian
+        enum status_pembayaran "menunggu|berhasil|gagal|kedaluwarsa"
+        string kode_referensi
+        text qris_payload
+        string bukti_bayar
+        datetime dibayar_pada
+        datetime kedaluwarsa_pada
+        smallint dikonfirmasi_oleh FK
+    }
+    PEMBELIAN {
+        int id_pembelian PK
+        string no_faktur_pembelian
+        date tgl_pembelian
+        int id_pemasok FK
+        enum status_pembelian "dipesan|diterima"
+    }
+    DETAIL_PEMBELIAN {
+        int id_pembelian PK "juga FK"
+        int id_barang PK "juga FK"
+        int qty_detail_pembelian
+        decimal harga_beli_detail_pembelian
+    }
+    KERANJANG {
+        int id_keranjang PK
+        int id_anggota FK,UK
+    }
+    KERANJANG_ITEM {
+        int id_keranjang_item PK
+        int id_keranjang FK
+        int id_barang FK
+        smallint qty
+    }
+    RIWAYAT_STOK {
+        bigint id_riwayat_stok PK
+        int id_barang FK
+        enum tipe "penjualan|pembelian|penyesuaian|batal"
+        int qty_perubahan
+        int stok_sebelum
+        int stok_sesudah
+        string referensi
+        string catatan
+        smallint id_pengurus FK
+    }
+    PENGATURAN {
+        string kunci PK
+        text nilai
+    }
+    LOG_AKTIVITAS {
+        bigint id_log PK
+        bigint user_id FK
+        string aksi
+        string tabel
+        string id_rekaman
+        json perubahan
+    }
+
+    PENGURUS ||--o{ USERS : "memiliki akun"
+    ANGGOTA ||--o{ USERS : "memiliki akun"
+    KATEGORI ||--o{ BARANG : mengelompokkan
+    PENGURUS ||--o{ PENJUALAN : "memproses (kasir)"
+    ANGGOTA ||--o{ PENJUALAN : "memesan (online)"
+    PENJUALAN ||--|{ DETAIL_PENJUALAN : memiliki
+    BARANG ||--o{ DETAIL_PENJUALAN : "dijual sebagai"
+    PENJUALAN ||--o{ PEMBAYARAN : "tagihan"
+    PENGURUS ||--o{ PEMBAYARAN : "mengonfirmasi"
+    PEMASOK ||--o{ PEMBELIAN : "memasok"
+    PEMBELIAN ||--|{ DETAIL_PEMBELIAN : memiliki
+    BARANG ||--o{ DETAIL_PEMBELIAN : "dibeli sebagai"
+    ANGGOTA ||--o| KERANJANG : "punya"
+    KERANJANG ||--|{ KERANJANG_ITEM : berisi
+    BARANG ||--o{ KERANJANG_ITEM : "ditambahkan"
+    BARANG ||--o{ RIWAYAT_STOK : "riwayat stok"
+    PENGURUS ||--o{ RIWAYAT_STOK : "mencatat"
+    USERS ||--o{ LOG_AKTIVITAS : "melakukan"

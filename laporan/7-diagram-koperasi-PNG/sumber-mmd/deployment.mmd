@@ -1,0 +1,45 @@
+flowchart TB
+    subgraph CLIENT["Client (Pengguna)"]
+        WB[Web Browser<br/>Pengunjung / Anggota]
+        KB[Web Browser<br/>Komputer Kasir]
+        HP[HP E-Wallet /<br/>Mobile Banking]
+    end
+
+    subgraph NET["Internet / HTTPS"]
+    end
+
+    subgraph SERVER["Web Hosting (cPanel / Shared Hosting)"]
+        direction TB
+        subgraph WS["Web Server (Apache / Nginx)"]
+            PUB[public/<br/>index.php + assets Vite]
+        end
+        subgraph APP["PHP-FPM — Laravel 11"]
+            RT[routes web.php + api.php]
+            CTRL[Controllers + Middleware CekPeran]
+            MD[Eloquent Models]
+            SVC2[QrisService + Scheduler]
+        end
+        subgraph ST["Storage"]
+            LOGO[logo / produk / qris / bukti_bayar]
+        end
+        CRON[Cron Job<br/>artisan schedule:run]
+    end
+
+    subgraph DBHOST["Database Server"]
+        MYSQL[(MySQL / MariaDB)]
+    end
+
+    subgraph EXT2["Eksternal"]
+        PGW2[Payment Gateway<br/>QRIS Provider]
+    end
+
+    WB --> NET
+    KB --> NET
+    NET --> WS
+    WS --> APP
+    APP --> MYSQL
+    APP --> ST
+    CRON --> APP
+    SVC2 --> PGW2
+    PGW2 -- "Webhook POST /api/webhook/qris" --> RT
+    HP -- "Scan QR & bayar" --> PGW2
