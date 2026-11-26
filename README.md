@@ -353,8 +353,7 @@ Bagian ini memuat dokumentasi visual **Matriks Audit Hak Akses** untuk Sistem In
 #### Halaman 5
 ![Matriks Audit Hak Akses - Halaman 5](matriks/matriks-audit-hak-akses-halaman-5.png)
 
-> **Catatan GitHub:** Pastikan kelima file PNG di atas sudah diunggah dan di-commit ke folder `matriks/` pada root repository agar seluruh gambar tampil dengan benar.
-
+[![Dokumen Word](https://img.shields.io/badge/Dokumen_Word-Matriks_Audit_Akses-2B579A?style=for-the-badge&logo=microsoftword&logoColor=white)](https://1drv.ms/w/c/b38f5ac96655c76b/IQDU-w6q-dSTS4Cpgu0YTyntAcifz43V47V-G4y5oA1Tu8A?e=BEci5d)
 ---
 
 ## D. Tentang Aplikasi
