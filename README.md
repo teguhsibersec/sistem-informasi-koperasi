@@ -28,6 +28,7 @@ Aplikasi web Enterprise Resource Planning (ERP) dan Storefront Koperasi Sekolah 
   - [Halaman Gudang](#4-dashboard-inventaris-gudang--sekretaris)
   - [Halaman Kasir / POS](#5-dashboard-kasir-point-of-sale-pos)
 - [C. Dokumentasi Diagram Sistem](#c-dokumentasi-diagram-sistem)
+  - [Matriks Audit Hak Akses](#8-matriks-audit-hak-akses)
   - [Activity Diagram](#1-activity-diagram--01--proses-checkout--pembayaran)
   - [Component Diagram](#2-component-diagram--02--komponen-aplikasi)
   - [Deployment Diagram](#3-deployment-diagram--03--lingkungan-implementasi)
@@ -322,6 +323,37 @@ Diagram use case memetakan interaksi fungsional antara aktor pengguna dengan sis
    - `Dashboard & Grafik Penjualan`: Memantau metrik omzet, pesanan, produk, anggota, dan grafik tren penjualan.
    - `Laporan Excel / PDF`: Mengakses analisis penjualan harian/bulanan, laba kotor, barang terlaris, mutasi stok, dan mengunduh laporan ke format Excel atau PDF.
    - `Pengaturan Sistem & QRIS`: Mengatur identitas koperasi, nomor WhatsApp toko, parameter QRIS (provider manual/gateway, masa berlaku), dan konfigurasi sistem lainnya.
+
+
+
+### 8. Matriks Audit Hak Akses
+
+Bagian ini memuat dokumentasi visual **Matriks Audit Hak Akses** untuk Sistem Informasi Koperasi Sekolah SMP Negeri 2 Metro. Gambar disimpan pada direktori `matriks/` di repository.
+
+| Halaman | Dokumentasi |
+| :---: | :--- |
+| 1 | [Lihat gambar halaman 1](matriks/matriks-audit-hak-akses-halaman-1.png) |
+| 2 | [Lihat gambar halaman 2](matriks/matriks-audit-hak-akses-halaman-2.png) |
+| 3 | [Lihat gambar halaman 3](matriks/matriks-audit-hak-akses-halaman-3.png) |
+| 4 | [Lihat gambar halaman 4](matriks/matriks-audit-hak-akses-halaman-4.png) |
+| 5 | [Lihat gambar halaman 5](matriks/matriks-audit-hak-akses-halaman-5.png) |
+
+#### Halaman 1
+![Matriks Audit Hak Akses - Halaman 1](matriks/matriks-audit-hak-akses-halaman-1.png)
+
+#### Halaman 2
+![Matriks Audit Hak Akses - Halaman 2](matriks/matriks-audit-hak-akses-halaman-2.png)
+
+#### Halaman 3
+![Matriks Audit Hak Akses - Halaman 3](matriks/matriks-audit-hak-akses-halaman-3.png)
+
+#### Halaman 4
+![Matriks Audit Hak Akses - Halaman 4](matriks/matriks-audit-hak-akses-halaman-4.png)
+
+#### Halaman 5
+![Matriks Audit Hak Akses - Halaman 5](matriks/matriks-audit-hak-akses-halaman-5.png)
+
+> **Catatan GitHub:** Pastikan kelima file PNG di atas sudah diunggah dan di-commit ke folder `matriks/` pada root repository agar seluruh gambar tampil dengan benar.
 
 ---
 
